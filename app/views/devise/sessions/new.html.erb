@@ -1,6 +1,5 @@
 <main class='form-signin m-auto text-center'>
 
-
   <% if request.host == 'localhost' %>
     <h1 class='h3 mb-3 fw-normal'>Admin Login</h2>
   <% elsif request.host == 'admin' %>
@@ -29,6 +28,6 @@
       <%= f.submit "Log in", class: 'w-100 btn btn-lg btn-primary' %>
     </div>
   <% end %>
-
-  <%= render "devise/shared/links" %>
+  
+  <%= render 'devise/shared/links' if request.host == 'client.com' %>
 </main>
