@@ -1,7 +1,6 @@
 <%= render partial: 'home/navbar' %>
-<%= render partial: 'home/login_register_tab' %>
-<main class="container w-50 mx-auto">
-  <%= form_for(resource, as: resource_name, url: registration_path(resource_name)) do |f| %>
+<main class="container w-50">
+  <%= form_for(resource, as: resource_name, url: registration_path(resource_name), html: { method: :put }) do |f| %>
     <%= render "devise/shared/error_messages", resource: resource %>
 
     <div class="form-floating mb-3">
@@ -33,10 +32,15 @@
       <%= f.label :password_confirmation %>
     </div>
 
+    <div class="form-floating mb-3">
+      <%= f.password_field :current_password, autocomplete: 'current-password', class: 'form-control mb-1', placeholder: 'Password confirmation'  %>
+      <%= f.label :current_password %> <i>(we need your current password to confirm your changes)</i><br />
+
+    </div>
+
     <div class="action">
-      <%= f.submit "Sign up", class: 'form-control btn btn-primary' %>
+      <%= f.submit "Update", class: 'form-control btn btn-primary' %>
     </div>
   <% end %>
 </main>
-
 <%= render 'home/footer' %>

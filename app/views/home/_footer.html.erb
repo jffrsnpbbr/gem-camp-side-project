@@ -5,7 +5,9 @@
     <li class="nav-item border"><a href="#" class="nav-link px-5 text-black">Lottery</a></li>
     <li class="nav-item border"><a href="#" class="nav-link px-5 text-black">Shop</a></li>
     <% if user_signed_in? %>
-      <li class="nav-item border"><a href="#" class="nav-link px-5 text-black">Me</a></li>
+      <li class="nav-item border">
+        <%= link_to 'me', profile_path, class: 'nav-link px-5 text-black' %>
+      </li>
     <% end %>
   </ul>
 </footer>

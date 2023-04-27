@@ -5,17 +5,20 @@ Rails.application.routes.draw do
     root controller: :home, action: :index
     devise_scope :user do
 
+      get :register, controller: :registrations, action: :new
+      get 'profile/edit', controller: :registrations, action: :edit
+
       get :login, controller: :sessions, action: :new
       delete :logout, controller: :sessions, action: :destroy
-      get :register, controller: :registrations, action: :new
 
-      resources :profile, only: :index
+      get :profile, controller: :profile, action: :show
+
     end
   end
 
   constraints AdminDomainConstraint.new do
     namespace :admin, path: '/' do
-      root controller: :home, action: :index
+      root controller: :home, action: :show
     end
   end
 end
