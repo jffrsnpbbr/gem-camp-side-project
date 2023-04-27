@@ -1,8 +1,48 @@
-<h1>Home</h1>
-
-<% if user_signed_in? %>
-  <h2> Hello <%= current_user.email %> </h2>
-<%= link_to 'Sign out', destroy_user_session_path, data: { turbo_method: :delete, turbo_confirm: 'Are you sure you want to logout?'} %>
-<% else %>
-  <%= link_to 'Sign in', new_user_session_path %>
-<% end %>
+<%= render partial: 'navbar' %>
+<div id="carousel" class="carousel slide">
+  <div class="carousel-inner">
+    <div class="carousel-item active">
+      <img src="https://images.unsplash.com/photo-1607282729548-e1d13feae36f?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1032&q=80" class="d-block w-100" alt="...">
+    </div>
+    <div class="carousel-item">
+      <img src="https://images.unsplash.com/photo-1581390881194-e38689620e22?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1034&q=80" class="d-block w-100" alt="...">
+    </div>
+    <div class="carousel-item">
+      <img src="https://images.unsplash.com/photo-1551334432-01340a95cce3?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1169&q=80" class="d-block w-100" alt="...">
+    </div>
+  </div>
+  <button class="carousel-control-prev" type="button" data-bs-target="#carousel" data-bs-slide="prev">
+    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+    <span class="visually-hidden">Previous</span>
+  </button>
+  <button class="carousel-control-next" type="button" data-bs-target="#carousel" data-bs-slide="next">
+    <span class="carousel-control-next-icon" aria-hidden="true"></span>
+    <span class="visually-hidden">Next</span>
+  </button>
+</div>
+<section class="bg-primary text-white py-5 px-3">
+  <h3 class="d-inline-block me-3">Announcement</h3><span class="d-inline-block">...</span>
+</section>
+<section class="pt-3 mb-5">
+  <h3 class="h3 border border-3 border-dark d-inline-block py-2 w-25 text-center">Winners Feedback</h3>
+  <div class="row mb-3">
+    <% 4.times.each do %>
+      <div class="col d-inline-flex justify-content-between ">
+        <div class="card border border-3 border-dark shadow-sm rounded-0">
+          <svg class="bd-placeholder-img card-img-top rounded-0" width="100%" height="225" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Placeholder: Thumbnail" preserveAspectRatio="xMidYMid slice" focusable="false"><title>Placeholder</title><rect width="100%" height="100%" fill="#55595c"></rect><text x="10%" y="20%" fill="#eceeef" dy=".3em">Thumbnail</text></svg>
+        </div>
+      </div>
+    <% end %>
+  </div>
+  <h3 class="h3 border border-3 border-dark d-inline-block py-2 w-25 text-center">Coming soon</h3>
+  <div class="row">
+    <% 4.times.each do %>
+      <div class="col d-inline-flex justify-content-between ">
+        <div class="card border border-3 border-dark shadow-sm rounded-0">
+          <svg class="bd-placeholder-img card-img-top rounded-0" width="100%" height="225" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Placeholder: Thumbnail" preserveAspectRatio="xMidYMid slice" focusable="false"><title>Placeholder</title><rect width="100%" height="100%" fill="#55595c"></rect><text x="50%" y="50%" fill="#eceeef" dy=".3em">Thumbnail</text></svg>
+        </div>
+      </div>
+    <% end %>
+  </div>
+</section>
+<%= render partial: 'footer' %>

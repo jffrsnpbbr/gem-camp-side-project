@@ -1,0 +1,57 @@
+
+
+<header class="container w-50">
+  <nav class="navbar bg-white fixed-top border-bottom p-0">
+    <div class="container d-flex justify-content-between">
+      <a class="navbar-brand" href="#">GempCamp III</a>
+      <div class="d-flex">
+        <ul class="nav nav-pills">
+          <li class="nav-item border">
+            <%= link_to 'Coins', root_path, class: 'nav-link text-secondary' %>
+          </li>
+          <li class="nav-item border">
+            <%= link_to 'Claim', root_path, class: 'nav-link text-secondary' %>
+          </li>
+          <li class="nav-item border"><a href="#" class="nav-link text-secondary">Language</a></li>
+          <li class="nav-item border"><a href="#" class="nav-link text-secondary" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasNavbar" aria-controls="offcanvasNavbar" aria-label="Toggle navigation" <%= 'disabled' unless user_signed_in? %>><span class="navbar-toggler-icon"></span></a></li>
+        </ul>
+        <% if user_signed_in? %>
+          <div class="offcanvas offcanvas-end" tabindex="-1" id="offcanvasNavbar" aria-labelledby="offcanvasNavbarLabel">
+            <div class="offcanvas-header d-flex flex-row-reverse">
+              <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+            </div>
+            <div class="offcanvas-body">
+              <div class="row d-flex align-items-center justify-content-start">
+                <div class="col-2">
+                  <%= link_to root_path do %>
+                    <img src="https://images.unsplash.com/photo-1607282729548-e1d13feae36f?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1032&q=80" width="50" height="50" class="border border-2 border-dark rounded-circle">
+                  <% end %>
+                </div>
+                <div class="col d-flex flex-column justify-content-evenly flex-grow-1">
+                  <li class="d-flex">
+                    <span><%= current_user.username %></span>
+                  </li>
+                  <li class="d-flex">
+                    <span><%= current_user.email %></span>
+                  </li>
+                </div>
+              </div>
+              <hr>
+              <button class="btn btn-success w-100 text-center">Cash in now</button>
+              <hr>
+              <ul class="list-unstyled">
+                <li class="mb-3">
+                  <%= link_to 'Contact Us', root_path, class: 'btn btn-light w-100' %>
+                </li>
+                <li class="">
+                  <%= link_to 'Logout', logout_path, class: 'btn btn-light w-100', data: { 'turbo-method': :delete } %>
+                </li>
+              </ul>
+            </div>
+          </div>
+        <% end %>
+      </div>
+
+    </div>
+  </nav>
+</header>
