@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_04_20_093523) do
+ActiveRecord::Schema[7.0].define(version: 2023_04_27_155125) do
   create_table "users", charset: "utf8mb4", collation: "utf8mb4_general_ci", force: :cascade do |t|
     t.string "email", default: "", null: false
     t.string "encrypted_password", default: "", null: false
@@ -30,6 +30,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_04_20_093523) do
     t.integer "coins", default: 0
     t.decimal "total_deposit", precision: 18, scale: 2, default: "0.0"
     t.integer "children_members", default: 0
+    t.string "image"
     t.index ["email"], name: "index_users_on_email", unique: true
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
     t.index ["username"], name: "index_users_on_username", unique: true
