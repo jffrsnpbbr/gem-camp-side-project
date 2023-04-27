@@ -1,6 +1,12 @@
 <%= render partial: 'home/navbar' %>
 <ul class="list-unstyled p-3">
-  <li class="mb-5 text-center"><img src="https://avatars.githubusercontent.com/u/93456420?v=4" class="rounded-circle border border-3 border-secondary"></li>
+  <li class="mb-5 text-center">
+    <% if current_user.image.present? %>
+        <%= image_tag current_user.image.url, class: 'rounded-circle border border-3 border-secondary ', style: 'object-fit: cover; object-position: center; width: 200px; height: 200px' %>
+    <% else %>
+      <img src="https://placehold.co/200x200" class="rounded-circle border border-3 border-secondary" style="object-fit: cover; object-position: center; width: 200px; height: 200px">
+    <% end %>
+  </li>
   <li class="mb-3">
     <h3 class="h5 d-inline-block w-25">Username</h3>
     <span class="h5 w-auto text-secondary"><%= current_user.username %></span>

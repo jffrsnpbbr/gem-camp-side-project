@@ -3,6 +3,16 @@
   <%= form_for(resource, as: resource_name, url: registration_path(resource_name), html: { method: :put }) do |f| %>
     <%= render "devise/shared/error_messages", resource: resource %>
 
+    <% if current_user.image.present? %>
+        <div class="mb-3" >
+          <%= image_tag current_user.image.url, class: 'rounded-circle border border-3 border-secondary ', style: 'object-fit: cover; object-position: center; width: 200px; height: 200px' %>
+        </div>
+    <% end %>
+
+    <div class="mb-3">
+      <%= f.file_field :image %>
+    </div>
+
     <div class="form-floating mb-3">
       <%= f.text_field :username, autofocus: true, autocomplete: "username", class: 'form-control', placeholder: 'Username' %>
       <%= f.label :username, class: 'form-label' %>
@@ -33,7 +43,7 @@
     </div>
 
     <div class="form-floating mb-3">
-      <%= f.password_field :current_password, autocomplete: 'current-password', class: 'form-control mb-1', placeholder: 'Password confirmation'  %>
+      <%= f.password_field :current_password, autocomplete: 'current-password', class: 'form-control mb-1', placeholder: 'Password confirmation', required: true %>
       <%= f.label :current_password %> <i>(we need your current password to confirm your changes)</i><br />
 
     </div>

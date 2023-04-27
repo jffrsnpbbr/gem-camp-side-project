@@ -14,4 +14,6 @@ class User < ApplicationRecord
     types: %i[voip mobile],
     countries: [:ph]
   }
+
+  mount_uploader :image, ImageUploader
 end
