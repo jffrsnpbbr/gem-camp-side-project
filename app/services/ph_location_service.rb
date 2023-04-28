@@ -57,7 +57,7 @@ class PhLocationService
       address_city.save
     end
   end
-
+  
   def fetch_barangays
     request = RestClient.get("#{url}/barangays")
     data = JSON.parse(request.body)
