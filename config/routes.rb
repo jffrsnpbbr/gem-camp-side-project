@@ -5,7 +5,11 @@ Rails.application.routes.draw do
         resources :provinces, only: :index, defaults: { format: :json }
       end
 
-      resources :provinces, only: [:index, :show], defaults: { format: :json }
+      resources :provinces, only: [:index, :show], defaults: { format: :json } do
+        resources :cities, only: :index, defaults: { format: :json }
+      end
+
+      resources :cities, only: [:index, :show], defaults: { format: :json }
     end
   end
   devise_for :users
