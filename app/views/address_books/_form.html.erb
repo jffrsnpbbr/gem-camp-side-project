@@ -51,7 +51,7 @@
     <%= form.label :name, class: 'form-label' %>
     <%= form.text_field :name, class: 'form-control' %>
   </div>
-
+  
   <div class="mb-3">
     <%= form.label :genre, class: 'form-label' %>
     <%= form.select :genre, options_for_select(AddressBook.genres.map{|key, value | [key.humanize, key]}), {},{ class: 'form-control' } %>
