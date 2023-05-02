@@ -1,0 +1,60 @@
+<%= form_with model: address_book, url: path, html: { 'data-controller': 'address', data: {} } do |form| %>
+  <% if address_book.errors.any? %>
+    <ul>
+      <% address_book.errors.each do |error| %>
+        <li><%= error.full_message %></li>
+      <% end %>
+    </ul>
+  <% end %>
+
+  <div class="mb-3">
+    <%= form.label :address_region_id, class: 'form-label' %>
+    <%= form.select :address_region_id, [], { :prompt => 'Select Region' }, { class: 'form-control', data: { 'address-target': 'selectAddressRegion', 'action': 'address#handleChangeSelectRegion', 'address-initial-option-id': address_book.address_region_id}} %>
+  </div>
+
+  <div class="mb-3">
+    <%= form.label :address_province_id, class: 'form-label' %>
+    <%= form.select :address_province_id, [], { :prompt => 'Select Province' }, { class: 'form-control', data: { 'address-target': 'selectAddressProvince', action: 'address#updateSelectCity', 'address-initial-option-id': address_book.address_province_id}} %>
+  </div>
+
+  <div class="mb-3">
+    <%= form.label :address_city_id, class: 'form-label' %>
+    <%= form.select :address_city_id, [], { :prompt => 'Select City' }, { class: 'form-control', data: { 'address-target': 'selectAddressCity', action: 'address#updateSelectBarangay', 'address-initial-option-id': address_book.address_city_id}} %>
+  </div>
+
+  <div class="mb-3">
+    <%= form.label :address_barangay_id, class: 'form-label' %>
+    <%= form.select :address_barangay_id, [], { :prompt => 'Select Barangay' }, { class: 'form-control', data: { 'address-target': 'selectAddressBarangay', 'address-initial-option-id': address_book.address_barangay_id}} %>
+  </div>
+
+  <div class="mb-3">
+    <%= form.label :address_street, class: 'form-label' %>
+    <%= form.text_field :address_street, class: 'form-control' %>
+  </div>
+
+  <div class="mb-3">
+    <%= form.label :phone_number, class: 'form-label' %>
+    <%= form.phone_field :phone_number, class: 'form-control' %>
+  </div>
+
+  <div class="mb-3">
+    <%= form.label :remark, class: 'form-label' %>
+    <%= form.text_field :remark, class: 'form-control' %>
+  </div>
+
+  <div class="form-check form-switch mb-3">
+    <%= form.label 'Default', class: 'form-check-label' %>
+    <%= form.check_box ':is_default', class: 'form-check-input' %>
+  </div>
+
+  <div class="mb-3">
+    <%= form.label :name, class: 'form-label' %>
+    <%= form.text_field :name, class: 'form-control' %>
+  </div>
+
+  <div class="mb-3">
+    <%= form.label :genre, class: 'form-label' %>
+    <%= form.select :genre, options_for_select(AddressBook.genres.map{|key, value | [key.humanize, key]}), {},{ class: 'form-control' } %>
+  </div>
+  <%= form.submit %>
+<% end %>

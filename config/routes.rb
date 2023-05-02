@@ -1,8 +1,6 @@
 Rails.application.routes.draw do
   namespace :api do
     namespace :v1 do
-      get 'barangays/index'
-      get 'barangays/show'
       resources :regions, only: [:index, :show], defaults: { format: :json } do
         resources :provinces, only: :index, defaults: { format: :json }
       end
@@ -31,7 +29,7 @@ Rails.application.routes.draw do
       delete :logout, controller: :sessions, action: :destroy
 
       get :profile, controller: :profile, action: :show
-
+      resources :address_books, except: :show
     end
   end
 

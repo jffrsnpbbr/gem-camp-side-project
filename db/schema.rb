@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_04_28_030145) do
+ActiveRecord::Schema[7.0].define(version: 2023_04_30_025600) do
   create_table "address_barangays", charset: "utf8mb4", collation: "utf8mb4_general_ci", force: :cascade do |t|
     t.bigint "city_id"
     t.string "code"
@@ -18,6 +18,27 @@ ActiveRecord::Schema[7.0].define(version: 2023_04_28_030145) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["city_id"], name: "index_address_barangays_on_city_id"
+  end
+
+  create_table "address_books", charset: "utf8mb4", collation: "utf8mb4_general_ci", force: :cascade do |t|
+    t.bigint "user_id"
+    t.bigint "address_region_id"
+    t.bigint "address_province_id"
+    t.bigint "address_city_id"
+    t.bigint "address_barangay_id"
+    t.string "address_street"
+    t.integer "genre"
+    t.string "name"
+    t.string "phone_number"
+    t.string "remark"
+    t.boolean "is_default"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["address_barangay_id"], name: "index_address_books_on_address_barangay_id"
+    t.index ["address_city_id"], name: "index_address_books_on_address_city_id"
+    t.index ["address_province_id"], name: "index_address_books_on_address_province_id"
+    t.index ["address_region_id"], name: "index_address_books_on_address_region_id"
+    t.index ["user_id"], name: "index_address_books_on_user_id"
   end
 
   create_table "address_cities", charset: "utf8mb4", collation: "utf8mb4_general_ci", force: :cascade do |t|

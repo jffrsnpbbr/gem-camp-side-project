@@ -3,4 +3,5 @@ class Address::Barangay < ApplicationRecord
   validates :code, uniqueness: true
 
   belongs_to :city
+  has_many :address_books
 end
