@@ -9,22 +9,22 @@
 
   <div class="mb-3">
     <%= form.label :address_region_id, class: 'form-label' %>
-    <%= form.select :address_region_id, [], { :prompt => 'Select Region' }, { class: 'form-control', data: { 'form-address-target': 'selectAddressRegion', 'action': 'form-address#handleChangeSelectRegion', 'address-initial-option-id': address_book.address_region_id}} %>
+    <%= form.select :address_region_id, [], { :prompt => 'Select Region' }, { class: 'form-control', data: { form_address_target: 'selectAddressRegion', action: 'form-address#handleChangeSelectRegion', 'form-address-initial-option-value': address_book.address_region_id }} %>
   </div>
 
   <div class="mb-3">
     <%= form.label :address_province_id, class: 'form-label' %>
-    <%= form.select :address_province_id, [], { :prompt => 'Select Province' }, { class: 'form-control', data: { 'form-address-target': 'selectAddressProvince', action: 'form-address#handleChangeSelectProvince', 'address-initial-option-id': address_book.address_province_id}} %>
+    <%= form.select :address_province_id, [], { :prompt => 'Select Province' }, { class: 'form-control', data: { form_address_target: 'selectAddressProvince', action: 'form-address#handleChangeSelectProvince', 'address-initial-option-id': address_book.address_province_id}} %>
   </div>
 
   <div class="mb-3">
     <%= form.label :address_city_id, class: 'form-label' %>
-    <%= form.select :address_city_id, [], { :prompt => 'Select City' }, { class: 'form-control', data: { 'form-address-target': 'selectAddressCity', action: 'form-address#handleChangeSelectCity', 'address-initial-option-id': address_book.address_city_id}} %>
+    <%= form.select :address_city_id, [], { :prompt => 'Select City' }, { class: 'form-control', data: { form_address_target: 'selectAddressCity', action: 'form-address#handleChangeSelectCity', 'address-initial-option-id': address_book.address_city_id}} %>
   </div>
 
   <div class="mb-3">
     <%= form.label :address_barangay_id, class: 'form-label' %>
-    <%= form.select :address_barangay_id, [], { :prompt => 'Select Barangay' }, { class: 'form-control', data: { 'form-address-target': 'selectAddressBarangay', 'address-initial-option-id': address_book.address_barangay_id}} %>
+    <%= form.select :address_barangay_id, [], { :prompt => 'Select Barangay' }, { class: 'form-control', data: { form_address_target: 'selectAddressBarangay', 'address-initial-option-id': address_book.address_barangay_id}} %>
   </div>
 
   <div class="mb-3">
@@ -54,7 +54,8 @@
   
   <div class="mb-3">
     <%= form.label :genre, class: 'form-label' %>
-    <%= form.select :genre, options_for_select(AddressBook.genres.map{|key, value | [key.humanize, key]}), {},{ class: 'form-control' } %>
+    <%= form.select :genre, options_for_select(AddressBook.genres.map{|key, value | [key.humanize, key]}), { prompt: 'select genre' }, { class: 'form-control', data: { form_address_target: 'selectGenre'} } %>
+
   </div>
   <%= form.submit %>
 <% end %>

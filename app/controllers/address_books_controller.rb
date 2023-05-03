@@ -1,5 +1,5 @@
 class AddressBooksController < ApplicationController
-
+  before_action :set_address_book, only: [:edit, :update]
 
   def index
     @address_books = AddressBook.includes(
@@ -26,7 +26,12 @@ class AddressBooksController < ApplicationController
     end
   end
 
-  def edit; end
+  def edit;
+    respond_to do |format| 
+      format.html { render :edit }
+      format.json { render json: @address_book}
+    end
+  end
 
   def update
     if @address_book.update(address_book_params)

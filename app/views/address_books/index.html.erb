@@ -6,6 +6,7 @@
             <th>PostCode</th>
             <th>Phone Number</th>
             <th>Remark</th>
+            <th>Action</th>
         </tr>
     </thead>
     <tbody>
@@ -13,10 +14,10 @@
         <tr class="<%= 'table-primary' if ab.is_default %>">
           <td><%= ab.name %></li></td>
           <td>
-            <% if ab.genre %>
-              <span class="badge rounded-pill text-bg-info ">Office</span>
-            <% else %>
+            <% if ab.home? %>
               <span class="badge rounded-pill text-bg-danger ">Home</span>
+            <% else %>
+              <span class="badge rounded-pill text-bg-info ">Office</span>
             <% end %><%= ab.address_street %>
           </td>
           <td>
@@ -30,6 +31,9 @@
           </td>
           <td><%= ab.phone_number %></td>
           <td><%= ab.remark %></td>
+          <td>
+            <%= link_to 'Edit', edit_address_book_path(ab),class: 'btn btn-outline-success'  %>
+          </td>
         </tr>
       <% end %>
     </tbody>

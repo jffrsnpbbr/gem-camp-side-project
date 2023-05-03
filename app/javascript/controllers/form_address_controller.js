@@ -3,13 +3,41 @@ import { Controller } from "@hotwired/stimulus"
 // Connects to data-controller="form-address"
 export default class extends Controller {
 
-  static targets = ['selectAddressRegion', 'selectAddressProvince', 'selectAddressCity', 'selectAddressBarangay']
+  static targets = ['selectAddressRegion', 'selectAddressProvince', 'selectAddressCity', 'selectAddressBarangay', 'selectGenre']
   connect() {
     (async () => {
       const regions = await this.fetchRegions();
       await this.updateSelectRegion(regions);
+
+      if (window.location.pathname.split('/').includes('edit')) {
+        const {
+          address_region_id,
+          address_province_id,
+          address_city_id,
+          address_barangay_id,
+          genre
+        } = await this.fetchBookAddressData();
+
+        this.selectAddressRegionTarget.value = address_region_id
+
+        const provinces = await this.fetchProvinces(address_region_id);
+        this.updateSelectProvince(provinces);
+        this.selectAddressProvinceTarget.value = address_province_id;
+
+        const cities = await this.fetchCities(address_province_id);
+        this.updateSelectCity(cities);
+        this.selectAddressCityTarget.value = address_city_id;
+
+        const barangays = await this.fetchBarangays(address_city_id);
+        this.updateSelectBarangay(barangays);
+        this.selectAddressBarangayTarget.value = address_barangay_id
+
+        this.selectGenreTarget.value = genre;
+      }
     })();
   }
+
+
 
   resetSelectOptions(target) {
 
@@ -40,7 +68,16 @@ export default class extends Controller {
     const barangays = await this.fetchBarangays(cityId);
     await this.updateSelectBarangay(barangays);
   }
-
+  
+  async fetchBookAddressData() {
+    const response = await fetch(window.location.pathname, {
+      method: 'GET',
+      headers: {
+          'Accept': 'application/json',
+      }
+    });
+    return await response.json();
+  }
 
   async fetchRegions() {
     const response = await fetch(`/api/v1/regions`);
