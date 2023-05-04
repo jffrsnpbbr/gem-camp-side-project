@@ -1,4 +1,5 @@
 class AddressBooksController < ApplicationController
+  before_action :authenticate_user!
   before_action :set_address_book, only: [:edit, :update]
 
   def index
