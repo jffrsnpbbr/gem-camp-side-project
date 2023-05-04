@@ -16,6 +16,7 @@ Rails.application.routes.draw do
       resources :barangays, only: [:index, :show], defaults: { format: :json }
     end
   end
+  
   devise_for :users
 
   constraints ClientDomainConstraint.new do

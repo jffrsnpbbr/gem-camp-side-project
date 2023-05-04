@@ -1,3 +1,4 @@
+<%= render partial: 'home/navbar' %>
 <table class="table">
     <thead>
         <tr>
@@ -39,5 +40,6 @@
     </tbody>
 </table>
 <div class="container text-end">
-  <%= link_to '+ ADD NEW ADDRESS', new_address_book_path, class: 'btn btn-primary' %>
-</div>
+  <%= link_to '+ ADD NEW ADDRESS', new_address_book_path, class: 'btn btn-primary' if @address_books.size < 5 %>
+</div> 
+<%= render partial: 'home/footer' %>
