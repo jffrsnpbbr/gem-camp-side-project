@@ -17,19 +17,25 @@ Rails.application.routes.draw do
     end
   end
   
-  devise_for :users
 
   constraints ClientDomainConstraint.new do
     root controller: :home, action: :index
+
+    devise_for :users, controllers: {
+      registrations: 'users/registrations',
+      sessions: 'users/sessions'
+    }
+
     devise_scope :user do
-
-      get :register, controller: :registrations, action: :new
-      get 'profile/edit', controller: :registrations, action: :edit
-
-      get :login, controller: :sessions, action: :new
-      delete :logout, controller: :sessions, action: :destroy
+      namespace :users do
+        resource do
+          get :sign_in, action: :new
+          get :edit_user_registration, action: :edit 
+        end
+      end
 
       get :profile, controller: :profile, action: :show
+      get :invite, controller: 'profile/invite', action: :show
       resources :address_books, except: :show
     end
   end
