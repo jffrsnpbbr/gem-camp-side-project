@@ -1,13 +1,7 @@
 class HomeController < ApplicationController
-  before_action :check_if_login
+  before_action :authenticate_user!
+
   def index
   end
 
-  private
-
-  def check_if_login
-    unless current_user
-      redirect_to login_path
-    end
-  end
 end
