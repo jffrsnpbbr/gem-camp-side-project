@@ -1,0 +1,11 @@
+<%= render partial: 'home/navbar' %>
+
+<div class="container text-center">
+    <h1 class="mb-3">Your invite link</h1>
+    <div class="container mb-3">
+    <%= @data[:qrcode].html_safe %>
+    </div>
+    <p><%= @data[:url] %></p>
+</div>
+\
+<%= render partial: 'home/footer' %>

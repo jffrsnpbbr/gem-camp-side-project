@@ -1,7 +1,9 @@
 <footer class="border bg-white border-dark border-top border-top-2 fixed-bottom">
   <ul class="nav justify-content-center">
     <li class="nav-item border"><a href="#" class="nav-link px-5 text-black">Share</a></li>
-    <li class="nav-item border"><a href="#" class="nav-link px-5 text-black">Invite</a></li>
+    <li class="nav-item border">
+      <%= link_to 'Invite', invite_path, class: 'nav-link px-5 text-black' %>
+    </li>
     <li class="nav-item border"><a href="#" class="nav-link px-5 text-black">Lottery</a></li>
     <li class="nav-item border"><a href="#" class="nav-link px-5 text-black">Shop</a></li>
     <% if user_signed_in? %>
