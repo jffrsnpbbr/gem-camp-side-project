@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_05_03_145525) do
+ActiveRecord::Schema[7.0].define(version: 2023_05_09_052326) do
   create_table "address_barangays", charset: "utf8mb4", collation: "utf8mb4_general_ci", force: :cascade do |t|
     t.bigint "city_id"
     t.string "code"
@@ -87,7 +87,9 @@ ActiveRecord::Schema[7.0].define(version: 2023_05_03_145525) do
     t.integer "children_members", default: 0
     t.string "image"
     t.integer "address_books_count"
+    t.bigint "parent_id"
     t.index ["email"], name: "index_users_on_email", unique: true
+    t.index ["parent_id"], name: "index_users_on_parent_id"
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
     t.index ["username"], name: "index_users_on_username", unique: true
   end

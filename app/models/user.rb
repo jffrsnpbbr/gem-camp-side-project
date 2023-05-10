@@ -17,5 +17,7 @@ class User < ApplicationRecord
 
   mount_uploader :image, ImageUploader
 
+  belongs_to :parent, class_name: 'User', optional: true
   has_many :address_books
+  has_many :users
 end
