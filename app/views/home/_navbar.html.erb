@@ -48,7 +48,7 @@
                   <%= link_to 'Contact Us', root_path, class: 'btn btn-light w-100' %>
                 </li>
                 <li class="">
-                  <%= link_to 'Logout', logout_path, class: 'btn btn-light w-100', data: { 'turbo-method': :delete } %>
+                  <%= link_to 'Logout',  destroy_user_session_path , class: 'btn btn-light w-100', data: { 'turbo-method': :delete } %>
                 </li>
               </ul>
             </div>
