@@ -77,3 +77,5 @@ gem "carrierwave", "~> 2.2"
 gem "rest-client", "~> 2.1"
 
 gem "rqrcode", "~> 2.1"
+
+gem "aasm", "~> 5.5"
