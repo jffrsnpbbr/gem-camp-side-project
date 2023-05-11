@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+
   namespace :api do
     namespace :v1 do
       resources :regions, only: [:index, :show], defaults: { format: :json } do
@@ -42,7 +43,9 @@ Rails.application.routes.draw do
 
   constraints AdminDomainConstraint.new do
     namespace :admin, path: '/' do
-      root controller: :home, action: :show
+      root controller: :home, action: :index
+
+      resources :users, only: :index
     end
   end
 end
