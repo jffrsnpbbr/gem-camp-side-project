@@ -1,3 +1,9 @@
 class Item < ApplicationRecord
-    num status: { inactive: 0, active: 1 }
+  default_scope { where(deleted_at: nil )}
+
+  num status: { inactive: 0, active: 1 }
+  
+  def destroy
+    update(deleted_at: Time.current)
+  end
 end
