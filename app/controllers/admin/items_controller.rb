@@ -2,7 +2,7 @@ class Admin::ItemsController < ApplicationController
   before_action :set_item, only: %i[edit update destroy]
 
   def index
-    @items = Item.all
+    @items = Item.includes(:categories).all
   end
 
   def new
@@ -36,7 +36,7 @@ class Admin::ItemsController < ApplicationController
   private
 
   def item_params
-    params.require(:item).permit(:image, :name, :quantity, :minimum_bets)
+    params.require(:item).permit(:image, :name, :quantity, :minimum_bets, category_ids: [])
   end
 
   def set_item

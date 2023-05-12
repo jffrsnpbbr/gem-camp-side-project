@@ -3,6 +3,7 @@
     <tr>
       <th>Image</th>
       <th>Name</th>
+      <th>Categories</th>
       <th>Quantity</th>
       <th>Minimum Bets</th>
       <th>Actions</th>
@@ -13,6 +14,7 @@
     <tr>
       <td><%= image_tag(item.image.to_s, { height: 100 }) if item.image.present? %></td>
       <td><%= item.name %></td>
+      <td><%= item.categories.pluck(:name).join(',') %></td>
       <td><%= item.quantity %></td>
       <td><%= item.minimum_bets %></td>
       <td>
