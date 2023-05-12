@@ -8,6 +8,27 @@ class Item < ApplicationRecord
 
   mount_uploader :image, ImageUploader
 
+  aasm column: :state do
+    state :pending, initial: true
+    state :starting, :paused, :ended, :cancelled
+
+    event :start do
+      transitions from: %i[pending paused ended cancelled], to: :starting
+    end
+
+    event :pause do
+      transitions from: :starting, to: :paused
+    end
+
+    event :end do
+      transitions from: :starting, to: :ended
+    end
+
+    event :cancel do
+      transitions from: %i[starting paused], to: :cancel
+    end
+  end
+
   def destroy
     update(deleted_at: Time.current)
   end
