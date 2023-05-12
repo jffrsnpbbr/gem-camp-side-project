@@ -1,5 +1,5 @@
 class Admin::ItemsController < ApplicationController
-  before_action :set_item, only: %i[edit update destroy]
+  before_action :set_item, except: %i[index new create]
 
   def index
     @items = Item.includes(:categories).all
@@ -33,13 +33,47 @@ class Admin::ItemsController < ApplicationController
     redirect_to admin_items_path
   end
 
+  def state_start
+    @item.start! if @item.may_start?
+
+    redirect_to admin_items_path
+  end
+
+  def state_pause
+    return unless @item.may_pause?
+
+    @item.pause!
+    redirect_to admin_items_path
+  end
+
+  def state_end
+    return unless @item.may_end?
+
+    @item.end!
+    redirect_to admin_items_path
+  end
+
+  def state_cancel
+    return unless @item.may_cancel?
+
+    @item.cancel!
+    redirect_to admin_items_path
+  end
+
   private
 
   def item_params
-    params.require(:item).permit(:image, :name, :quantity, :minimum_bets, category_ids: [])
+    params.require(:item).permit(:image, :name, :quantity, :minimum_bets, :state, :online_at, :offline_at, :start_at,
+                                 category_ids: [])
   end
 
   def set_item
     @item = Item.find(params[:id])
   end
 end
+
+t.string 'state'
+t.integer 'batch_count'
+t.datetime 'online_at'
+t.datetime 'offline_at'
+t.datetime 'start_at'

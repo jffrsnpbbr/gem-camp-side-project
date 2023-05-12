@@ -23,10 +23,30 @@
     <%= form.label :quantity, class: 'form-label' %>
     <%= form.number_field :quantity, class: 'form-control' %>
   </div>
-
+  
   <div class="mb-3">
     <%= form.label :minimum_bets, class: 'form-label' %>
     <%= form.number_field :minimum_bets, class: 'form-control' %>
+  </div>
+
+  <div class="mb-3">
+    <%= form.label :online_at, class: 'form-label' %>
+    <%= form.date_field :online_at, class: 'form-control' %>
+  </div>
+
+  <div class="mb-3">
+    <%= form.label :offline_at, class: 'form-label' %>
+    <%= form.date_field :offline_at, class: 'form-control' %>
+  </div>
+
+  <div class="mb-3">
+    <%= form.label :start_at, class: 'form-label' %>
+    <%= form.date_field :online_at, class: 'form-control' %>
+  </div>
+
+  <div  class="mb-3">
+    <%= form.label :status %>
+    <%= form.select :status, options_for_select(Item.statuses.map{|key, value | [key.humanize, key]}), { :prompt => 'Select Status' }, { class: 'form-control' } %>
   </div>
 
   <%= form.submit %>
