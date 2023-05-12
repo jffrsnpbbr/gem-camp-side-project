@@ -1,0 +1,29 @@
+<%= form_with model: item, url: path, data: { turbo: false } do |form| %>
+
+  <% if item.image.present? %>
+    <div class="mb-3" >
+      <%= image_tag item.image.url, class: 'border border-3 border-secondary ', style: 'object-fit: cover; object-position: center; width: 200px; height: 200px' %>
+    </div>
+  <% end %>
+
+  <div class="mb-3">
+    <%= form.file_field :image %>
+  </div>
+
+  <div class="mb-3">
+    <%= form.label :name, class: 'form-label' %>
+    <%= form.text_field :name, class: 'form-control' %>
+  </div>
+
+  <div class="mb-3">
+    <%= form.label :quantity, class: 'form-label' %>
+    <%= form.number_field :quantity, class: 'form-control' %>
+  </div>
+
+  <div class="mb-3">
+    <%= form.label :minimum_bets, class: 'form-label' %>
+    <%= form.number_field :minimum_bets, class: 'form-control' %>
+  </div>
+
+  <%= form.submit %>
+<% end %>

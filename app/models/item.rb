@@ -1,3 +1,5 @@
 class Item < ApplicationRecord
-    num status: { inactive: 0, active: 1 }
+  enum status: { inactive: 0, active: 1 }
+
+  mount_uploader :image, ImageUploader
 end
