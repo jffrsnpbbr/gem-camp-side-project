@@ -45,6 +45,7 @@ Rails.application.routes.draw do
 
       resources :users, only: :index
       resources :items
+      resources :categories
     end
   end
 end

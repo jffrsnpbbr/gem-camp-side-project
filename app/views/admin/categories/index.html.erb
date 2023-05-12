@@ -1,0 +1,23 @@
+<h1>Item Categories</h1>
+<table class="table">
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Action</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @categories.each do |category| %>
+      <tr>
+        <td><%= category.name %></td>
+        <td>
+          <%= link_to 'Edit', edit_admin_category_path(category), class: 'btn btn-primary'%>
+          <%= button_to 'Delete', admin_category_path(category), method: :delete, class: 'btn btn-danger', form: { class: 'd-inline'}  %>
+        </td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+<div class="container">
+  <%= link_to 'New', new_admin_category_path, class: 'btn btn-primary px-4'%>
+</div>
