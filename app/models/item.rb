@@ -1,9 +1,5 @@
 class Item < ApplicationRecord
-  default_scope { where(deleted_at: nil )}
+  enum status: { inactive: 0, active: 1 }
 
-  num status: { inactive: 0, active: 1 }
-  
-  def destroy
-    update(deleted_at: Time.current)
-  end
+  mount_uploader :image, ImageUploader
 end
