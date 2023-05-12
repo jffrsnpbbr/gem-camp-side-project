@@ -3,6 +3,8 @@ class Item < ApplicationRecord
 
   enum status: { inactive: 0, active: 1 }
 
+  mount_uploader :image, ImageUploader
+
   def destroy
     update(deleted_at: Time.current)
   end
