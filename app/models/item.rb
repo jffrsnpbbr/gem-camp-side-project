@@ -17,6 +17,8 @@ class Item < ApplicationRecord
 
   mount_uploader :image, ImageUploader
 
+  scope :online, -> { where('offline_at >= :date and online_at <= :date', date: DateTime.current) }
+
   include AASM
   aasm column: :state do
     state :pending, initial: true

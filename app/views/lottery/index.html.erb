@@ -1,0 +1,41 @@
+<div id="carousel" class="carousel slide">
+  <div class="carousel-inner">
+    <div class="carousel-item active">
+      <img src="https://images.unsplash.com/photo-1607282729548-e1d13feae36f?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1032&q=80" class="d-block w-100" alt="...">
+    </div>
+    <div class="carousel-item">
+      <img src="https://images.unsplash.com/photo-1581390881194-e38689620e22?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1034&q=80" class="d-block w-100" alt="...">
+    </div>
+    <div class="carousel-item">
+      <img src="https://images.unsplash.com/photo-1551334432-01340a95cce3?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1169&q=80" class="d-block w-100" alt="...">
+    </div>
+  </div>
+  <button class="carousel-control-prev" type="button" data-bs-target="#carousel" data-bs-slide="prev">
+    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+    <span class="visually-hidden">Previous</span>
+  </button>
+  <button class="carousel-control-next" type="button" data-bs-target="#carousel" data-bs-slide="next">
+    <span class="carousel-control-next-icon" aria-hidden="true"></span>
+    <span class="visually-hidden">Next</span>
+  </button>
+</div>
+<section class="bg-primary text-white py-5 px-3">
+  <h3 class="d-inline-block me-3">Announcement</h3><span class="d-inline-block">...</span>
+</section>
+<section class="pt-3 mb-5" id="item-list">
+  <h3 class="h3 border border-3 border-dark d-inline-block py-2 w-25 text-center">Winners Feedback</h3>
+  <div class="d-flex ">
+    <%= link_to 'All', lottery_index_path(anchor: 'item-list'), class: "btn btn-outline-info #{'active' if params[:category].blank?}" %>
+    <% Category.all.each do |category| %>
+      <%= link_to category.name, lottery_index_path(anchor: 'item-list', category: category.name), class: "btn btn-outline-info mx-1 #{'active' if category.name == params[:category]}" %>
+    <% end %>
+  </div>
+  <div class="row mb-3">
+    <% @items.each do |item| %>
+      <div class="col-2 border">
+        <%= link_to '#item-list' do %>
+          <%= image_tag item.image.url, { class: 'object-fit-cover' } if item.image.present? %>
+        <% end %>
+      </div>
+    <% end %>
+</section>

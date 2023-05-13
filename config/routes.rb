@@ -36,6 +36,7 @@ Rails.application.routes.draw do
       get :profile, controller: :profile, action: :show
       get :invite, controller: 'profile/invite', action: :show
       resources :address_books, except: :show
+      resources :lottery, only: :index
     end
   end
 
