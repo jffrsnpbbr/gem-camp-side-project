@@ -33,6 +33,34 @@ class Admin::ItemsController < ApplicationController
     redirect_to admin_items_path
   end
 
+  def state_start
+    return unless @item.may_start?
+
+    @item.start! 
+    redirect_to admin_items_path
+  end
+
+  def state_pause
+    return unless @item.may_pause?
+
+    @item.pause!
+    redirect_to admin_items_path
+  end
+
+  def state_end
+    return unless @item.may_end?
+
+    @item.end!
+    redirect_to admin_items_path
+  end
+
+  def state_cancel
+    return unless @item.may_cancel?
+
+    @item.cancel!
+    redirect_to admin_items_path
+  end
+
   private
 
   def item_params

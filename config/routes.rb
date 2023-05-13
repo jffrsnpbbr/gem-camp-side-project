@@ -44,7 +44,15 @@ Rails.application.routes.draw do
       root controller: :home, action: :index
 
       resources :users, only: :index
-      resources :items
+      resources :items do
+        member do
+          patch :state_start
+          patch :state_pause
+          patch :state_end
+          patch :state_cancel
+        end
+      end
+
       resources :categories
     end
   end

@@ -9,6 +9,7 @@ class Item < ApplicationRecord
   validates :online_at, presence: true
   validates :offline_at, presence: true
   validates :start_at, presence: true
+
   enum status: { inactive: 0, active: 1 }
 
   has_many :item_category_ships
@@ -16,12 +17,14 @@ class Item < ApplicationRecord
 
   mount_uploader :image, ImageUploader
 
+  include AASM
   aasm column: :state do
     state :pending, initial: true
     state :starting, :paused, :ended, :cancelled
 
     event :start do
-      transitions from: %i[pending paused ended cancelled], to: :starting
+      transitions from: %i[pending ended cancelled], to: :starting, guards: %i[quantity_positive? active? today_is_less_than_offline?], success: [:decrease_quantity, :increase_batch_count]
+      transitions from: :paused, to: :starting, guards: %i[quantity_positive? active? today_is_less_than_offline?]
     end
 
     event :pause do
@@ -33,8 +36,32 @@ class Item < ApplicationRecord
     end
 
     event :cancel do
-      transitions from: %i[starting paused], to: :cancel
+      transitions from: %i[starting paused], to: :cancelled, success: %i[decrease_batch_count increase_quantity]
     end
+  end
+
+  def increase_quantity
+    increment! :quantity
+  end
+
+  def decrease_quantity
+    decrement! :quantity
+  end
+
+  def increase_batch_count
+    increment! :batch_count
+  end
+
+  def decrease_batch_count
+    decrement! :batch_count
+  end
+
+  def quantity_positive?
+    quantity.positive? if quantity.present?
+  end
+
+  def today_is_less_than_offline?
+    DateTime.current < offline_at
   end
 
   def destroy
