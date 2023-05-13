@@ -1,5 +1,5 @@
 class Admin::ItemsController < ApplicationController
-  before_action :set_item, only: %i[edit update destroy]
+  before_action :set_item, except: %i[index new create]
 
   def index
     @items = Item.includes(:categories).all
@@ -14,7 +14,7 @@ class Admin::ItemsController < ApplicationController
     if @item.save
       redirect_to admin_items_path
     else
-      render :new
+      render :new, status: :unprocessable_entity
     end
   end
 
@@ -36,7 +36,8 @@ class Admin::ItemsController < ApplicationController
   private
 
   def item_params
-    params.require(:item).permit(:image, :name, :quantity, :minimum_bets, category_ids: [])
+    params.require(:item).permit(:image, :name, :quantity, :minimum_bets, :state, :online_at,
+                                 :offline_at, :start_at, :status, category_ids: [])
   end
 
   def set_item

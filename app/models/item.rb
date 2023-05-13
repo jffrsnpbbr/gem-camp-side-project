@@ -1,6 +1,14 @@
 class Item < ApplicationRecord
   default_scope { where(deleted_at: nil) }
 
+  validates :image, presence: true
+  validates :name, presence: true
+  validates :quantity, presence: true
+  validates :minimum_bets, presence: true
+  validates :status, presence: true
+  validates :online_at, presence: true
+  validates :offline_at, presence: true
+  validates :start_at, presence: true
   enum status: { inactive: 0, active: 1 }
 
   has_many :item_category_ships

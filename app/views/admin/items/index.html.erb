@@ -1,25 +1,38 @@
 <table class="table">
   <thead>
     <tr>
+      <th>Status</th>
       <th>Image</th>
       <th>Name</th>
       <th>Categories</th>
       <th>Quantity</th>
       <th>Minimum Bets</th>
+      <th>State</th>
+      <th>Batch</th>
+      <th>Online at</th>
+      <th>Offline at</th>
+      <th>Start at</th>
       <th>Actions</th>
     </tr>
   </thead>
   <tbody>
     <% @items.each do |item| %>
-    <tr>
-      <td><%= image_tag(item.image.to_s, { height: 100 }) if item.image.present? %></td>
+
+    <tr id="item-<%= item.id %>">
+      <td><span class="badge rounded-pill text-bg-<%= item.status == 'active' ? 'success' : 'danger' %>"><%= item.status %></span></td>
+      <td><%= image_tag(item.image.url, { height: 100 }) if item.image.present? %></td>
       <td><%= item.name %></td>
       <td><%= item.categories.pluck(:name).join(',') %></td>
       <td><%= item.quantity %></td>
       <td><%= item.minimum_bets %></td>
+      <td><%= item.state %></td>
+      <td><%= item.batch_count %></td>
+      <td><%= item.online_at %></td>
+      <td><%= item.offline_at %></td>
+      <td><%= item.start_at %></td>
       <td>
         <%= link_to 'Edit', edit_admin_item_path(item), class: 'btn btn-primary' %>
-        <%= button_to 'Delete', admin_item_path(item), method: :delete, class: 'btn btn-danger', form: { class: 'd-inline'}%>
+        <%= button_to 'Delete', admin_item_path(item), method: :delete, class: 'btn btn-danger', form: { class: 'd-inline'} %>
       </td>
     </tr>
     <% end %>
