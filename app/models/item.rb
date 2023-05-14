@@ -14,6 +14,7 @@ class Item < ApplicationRecord
 
   has_many :item_category_ships
   has_many :categories, through: :item_category_ships
+  has_many :bets
 
   mount_uploader :image, ImageUploader
 
@@ -38,7 +39,7 @@ class Item < ApplicationRecord
     end
 
     event :cancel do
-      transitions from: %i[starting paused], to: :cancelled, success: %i[decrease_batch_count increase_quantity]
+      transitions from: %i[starting paused], to: :cancelled, success: %i[decrease_batch_count increase_quantity cancel_bets]
     end
   end
 
@@ -66,7 +67,13 @@ class Item < ApplicationRecord
     DateTime.current < offline_at
   end
 
+  def cancel_bets
+    bets.each { |bet| bet.cancel! if bet.may_cancel? }
+  end
+
   def destroy
+    raise 'Cannot delete Item with bets' unless bets.count.zero?
+
     update(deleted_at: Time.current)
   end
 end

@@ -4,6 +4,9 @@
 
 import { application } from "./application"
 
+import BetController from "./bet_controller"
+application.register("bet", BetController)
+
 import FormAddressController from "./form_address_controller"
 application.register("form-address", FormAddressController)
 

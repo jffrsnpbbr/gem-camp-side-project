@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_05_13_114527) do
+ActiveRecord::Schema[7.0].define(version: 2023_05_13_155108) do
   create_table "address_barangays", charset: "utf8mb4", collation: "utf8mb4_general_ci", force: :cascade do |t|
     t.bigint "city_id"
     t.string "code"
@@ -64,6 +64,19 @@ ActiveRecord::Schema[7.0].define(version: 2023_05_13_114527) do
     t.string "name"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+  end
+
+  create_table "bets", charset: "utf8mb4", collation: "utf8mb4_general_ci", force: :cascade do |t|
+    t.bigint "item_id"
+    t.bigint "user_id"
+    t.integer "coins", default: 1
+    t.integer "batch_count", null: false
+    t.string "state", default: "betting"
+    t.string "serial_number", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["item_id"], name: "index_bets_on_item_id"
+    t.index ["user_id"], name: "index_bets_on_user_id"
   end
 
   create_table "categories", charset: "utf8mb4", collation: "utf8mb4_general_ci", force: :cascade do |t|
@@ -125,4 +138,6 @@ ActiveRecord::Schema[7.0].define(version: 2023_05_13_114527) do
     t.index ["username"], name: "index_users_on_username", unique: true
   end
 
+  add_foreign_key "bets", "items"
+  add_foreign_key "bets", "users"
 end

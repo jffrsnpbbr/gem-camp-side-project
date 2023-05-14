@@ -36,7 +36,11 @@ Rails.application.routes.draw do
       get :profile, controller: :profile, action: :show
       get :invite, controller: 'profile/invite', action: :show
       resources :address_books, except: :show
-      resources :lottery, only: :index
+      resources :lottery, only: %i[index show] do
+        member do
+          post :bet
+        end
+      end
     end
   end
 
@@ -53,6 +57,7 @@ Rails.application.routes.draw do
           patch :state_cancel
         end
       end
+      resources :bets, only: :index
 
       resources :categories
     end

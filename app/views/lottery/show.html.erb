@@ -1,0 +1,32 @@
+<div class="container">
+  <%= image_tag item.image.url, class: 'object-fit-cover' %>
+</div>
+<%= form_with url: bet_lottery_path, method: :post, data: { controller: 'bet'} do |form| %>
+  <div class="container d-flex mb-3">
+    <%= form.button type: :button, class: 'btn btn-outline-dark', data: { action: 'bet#decrement'} do %>&minus;<% end %>
+    <%= form.number_field :bet_amount, { value: 0, class: 'form-control text-center', data: { bet_target: 'inputAmount'}, readonly: true}%>
+    <%= form.button type: :button, class: 'btn btn-outline-dark', data: { action: 'bet#increment' } do %>&plus;<% end %>
+  </div>
+  <div class="container">
+    <%= form.submit 'Submit', class: 'btn btn-warning form-control', data: { bet_target: 'buttonSubmit' } %>
+  </div>
+<% end %>
+<% if user_signed_in?  %>
+  <table class="table">
+    <thead>
+      <tr>
+        <th>Serial Number</th>
+        <th>Created At</th>
+      </tr>
+    </thead>
+    <tbody>
+      if
+      <% current_user_bets.each do |bet| %>
+        <tr>
+          <td><%= bet.serial_number %></td>
+          <td><%= bet.created_at.strftime("%Y/%m/%d %I:%M %p") %></td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+<% end %>
