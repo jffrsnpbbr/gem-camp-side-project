@@ -1,25 +1,41 @@
+<style scoped>
+  input[type="date"] {
+    width: 350px;
+  }
+</style>
 <h1>Users Bet List</h1>
+<div class="container">
+  <%= form_tag admin_bets_path, method: :get, class: 'd-flex align-items-center' do %>
+    <%= search_field_tag :search, params[:search], class: 'form-control'%>
+    <%= select_tag :state, options_for_select([:betting, :won, :lost, :cancelled], params[:state]) %>
+    <%= label_tag 'From:', nil, class: 'mx-2' %>
+    <%= date_field_tag :start_date %>
+    <%= label_tag 'To:', nil, class: 'mx-2'%>
+    <%= date_field_tag :end_date %>
+    <%= submit_tag 'Search', class: 'btn btn-outline-success ms-2' %>
+  <% end %>
+</div>
 <table class="table">
-    <thead>
-        <tr>
-            <th>Item</th>
-            <th>User</th>
-            <th>Batch</th>
-            <th>Coins</th>
-            <th>State</th>
-            <th>Serial Number</th>
-        </tr>
-    </thead>
-    <tbody>
-        <% @bets.each do |bet| %>
-        <tr>
-            <td><%= bet.item.name %></td>
-            <td><%= bet.user.username %></td>
-            <td><%= bet.item.batch_count %></td>
-            <td><%= bet.coins %></td>
-            <td><%= bet.state %></td>
-            <td><%= bet.serial_number %></td>
-        </tr>
-        <% end  %>
-    </tbody>
+  <thead>
+    <tr>
+      <th>Item</th>
+      <th>User</th>
+      <th>Batch</th>
+      <th>Coins</th>
+      <th>State</th>
+      <th>Serial Number</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @bets.each do |bet| %>
+      <tr>
+        <td><%= bet.item.name %></td>
+        <td><%= bet.user.username %></td>
+        <td><%= bet.item.batch_count %></td>
+        <td><%= bet.coins %></td>
+        <td><%= bet.state %></td>
+        <td><%= bet.serial_number %></td>
+      </tr>
+    <% end  %>
+  </tbody>
 </table>
