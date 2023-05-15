@@ -6,7 +6,7 @@ class Bet < ApplicationRecord
   validates :item_id, presence: true
   validate :user_enough_coin?, on: :create
 
-  after_validation :set_serial_number, :deduct_user_coin
+  before_create :set_serial_number, :deduct_user_coin
 
   scope :recent, -> { order(created_at: :desc) }
 
