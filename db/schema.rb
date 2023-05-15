@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_05_13_155108) do
+ActiveRecord::Schema[7.0].define(version: 2023_05_15_034422) do
   create_table "address_barangays", charset: "utf8mb4", collation: "utf8mb4_general_ci", force: :cascade do |t|
     t.bigint "city_id"
     t.string "code"
@@ -136,6 +136,27 @@ ActiveRecord::Schema[7.0].define(version: 2023_05_13_155108) do
     t.index ["parent_id"], name: "index_users_on_parent_id"
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
     t.index ["username"], name: "index_users_on_username", unique: true
+  end
+
+  create_table "winners", charset: "utf8mb4", collation: "utf8mb4_general_ci", force: :cascade do |t|
+    t.bigint "item_id"
+    t.bigint "bet_id"
+    t.bigint "user_id"
+    t.bigint "address_book_id"
+    t.bigint "admin_id"
+    t.integer "item_batch_count"
+    t.string "state", default: "won"
+    t.integer "price"
+    t.datetime "paid_at"
+    t.string "picture"
+    t.text "comment"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["address_book_id"], name: "index_winners_on_address_book_id"
+    t.index ["admin_id"], name: "index_winners_on_admin_id"
+    t.index ["bet_id"], name: "index_winners_on_bet_id"
+    t.index ["item_id"], name: "index_winners_on_item_id"
+    t.index ["user_id"], name: "index_winners_on_user_id"
   end
 
   add_foreign_key "bets", "items"
