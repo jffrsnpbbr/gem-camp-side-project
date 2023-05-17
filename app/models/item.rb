@@ -27,7 +27,10 @@ class Item < ApplicationRecord
     state :starting, :paused, :ended, :cancelled
 
     event :start do
-      transitions from: %i[pending ended cancelled], to: :starting, guards: %i[quantity_positive? active? today_is_less_than_offline?], success: [:decrease_quantity, :increase_batch_count]
+      transitions from: %i[pending ended cancelled],
+                  to: :starting,
+                  guards: %i[quantity_positive? active? today_is_less_than_offline?],
+                  success: %i[decrease_quantity increase_batch_count]
       transitions from: :paused, to: :starting, guards: %i[quantity_positive? active? today_is_less_than_offline?]
     end
 
@@ -36,11 +39,13 @@ class Item < ApplicationRecord
     end
 
     event :end do
-      transitions from: :starting, to: :ended
+      transitions from: :starting, to: :ended, guard: :bets_equal_or_greater_than_minimum_bets?,
+                  success: %i[select_winner record_winner]
     end
 
     event :cancel do
-      transitions from: %i[starting paused], to: :cancelled, success: %i[decrease_batch_count increase_quantity cancel_bets]
+      transitions from: %i[starting paused], to: :cancelled,
+                  success: %i[decrease_batch_count increase_quantity cancel_bets]
     end
   end
 
@@ -68,6 +73,10 @@ class Item < ApplicationRecord
     DateTime.current < offline_at
   end
 
+  def bets_equal_or_greater_than_minimum_bets?
+    bets.where(state: :betting, batch_count:).size >= minimum_bets
+  end
+
   def cancel_bets
     bets.each { |bet| bet.cancel! if bet.may_cancel? }
   end
@@ -76,5 +85,27 @@ class Item < ApplicationRecord
     raise 'Cannot delete Item with bets' unless bets.count.zero?
 
     update(deleted_at: Time.current)
+  end
+
+  def select_winner
+    item_bets = Bet.where(state: :betting, batch_count:)
+
+    random = Random.new
+    draw = random.rand(item_bets.size)
+    @won_bet = item_bets[draw]
+
+    return unless @won_bet.won!
+
+    item_bets.each { |bet| bet.lose! unless bet.id == @won_bet.id }
+  end
+
+  def record_winner
+    bet_id = @won_bet.id
+    user_id = @won_bet.user_id
+    address_book_id = AddressBook.find_by(user_id:, is_default: true).id
+    winner = winners.build(bet_id:, user_id:, address_book_id:)
+    return unless winner.valid?
+
+    winner.save
   end
 end
