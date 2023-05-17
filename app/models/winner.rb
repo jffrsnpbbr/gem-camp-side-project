@@ -24,7 +24,7 @@ class Winner < ApplicationRecord
     end
 
     event :ship do
-      transitions paid: :betting, to: :shipped
+      transitions from: :paid, to: :shipped
     end
 
     event :deliver do
