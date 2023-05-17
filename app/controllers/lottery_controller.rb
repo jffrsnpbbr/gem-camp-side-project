@@ -10,7 +10,6 @@ class LotteryController < ApplicationController
   end
 
   def show
-    @item
     render :show, locals: { item: @item, current_user_bets: @current_user_bets }
   end
 
@@ -18,9 +17,7 @@ class LotteryController < ApplicationController
     if @item.starting? && current_user.coins > @bet_amount
       @bet_amount.times do
         bet = Bet.new(user: current_user, item: @item, batch_count: @item.batch_count)
-        if bet.valid?
-          bet.save
-        end
+        bet.save if bet.valid?
       end
       redirect_to lottery_path(@item)
     else
