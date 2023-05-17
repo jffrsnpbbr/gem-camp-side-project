@@ -1,0 +1,39 @@
+<%= form_tag admin_offers_path, method: :get, class: 'd-flex align-items-center' do %>
+  <%= search_field_tag :search, params[:search], class: 'form-control'%>
+  <%= select_tag :genre, options_for_select(@genres.map{|c| [c.humanize, c]}), { prompt: 'Select genre'} %>
+  <%= select_tag :status, options_for_select(@statuses.keys.map{|k| [k.humanize, k]}), { prompt: 'Select status'} %>
+  <%= submit_tag 'Search', class: 'btn btn-outline-success ms-2' %>
+<% end %>
+<table class="table">
+  <thead>
+    <tr>
+      <th>Image</th>
+      <th>Name</th>
+      <th>genre</th>
+      <th>status</th>
+      <th>amount</th>
+      <th>Coins</th>
+      <th>Actions</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @offers.each do |offer| %>
+      <tr>
+        <td><%= image_tag offer.image.url, height: 100 if offer.image.present? %></td>
+        <td><%= offer.name %></td>
+        <td><%= offer.genre %></td>
+        <td><%= offer.status %></td>
+        <td><%= offer.amount %></td>
+        <td><%= offer.coins %></td>
+        <td>
+          <%= link_to 'Show', admin_offer_path(offer), class: 'btn btn-outline-primary' %>
+          <%= link_to 'Edit', edit_admin_offer_path(offer), class: 'btn btn-outline-primary'  %>
+          <%= button_to 'Delete', admin_offer_path(offer), method: :delete, class: 'btn btn-outline-danger'  %>
+        </td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+<div class="container">
+  <%= link_to 'New Offer', new_admin_offer_path, class: 'btn btn-outline-primary' %>
+</div>
