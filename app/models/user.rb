@@ -21,4 +21,5 @@ class User < ApplicationRecord
   has_many :children, class_name: 'User', foreign_key: :parent_id
   has_many :address_books
   has_many :winners
+  has_many :orders
 end
