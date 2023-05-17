@@ -21,7 +21,7 @@ class Bet < ApplicationRecord
     end
 
     event :lose do
-      transitions from: :betting, to: :lose
+      transitions from: :betting, to: :lost
     end
 
     event :cancel do
