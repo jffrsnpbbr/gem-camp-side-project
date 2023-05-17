@@ -1,8 +1,9 @@
 class Winner < ApplicationRecord
   belongs_to :item
+  belongs_to :user
   belongs_to :bet
   belongs_to :address_book
-  belongs_to :admin, class_name: 'User'
+  belongs_to :admin, class_name: 'User', optional: true
 
   include AASM
 

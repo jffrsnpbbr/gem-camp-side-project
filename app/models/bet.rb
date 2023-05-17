@@ -2,6 +2,8 @@ class Bet < ApplicationRecord
   belongs_to :item
   belongs_to :user
 
+  has_many :winners
+
   validates :user_id, presence: true
   validates :item_id, presence: true
   validate :user_enough_coin?, on: :create
