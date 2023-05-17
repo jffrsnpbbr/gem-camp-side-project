@@ -27,8 +27,8 @@ class AddressBooksController < ApplicationController
     end
   end
 
-  def edit;
-    respond_to do |format| 
+  def edit
+    respond_to do |format|
       format.html { render :edit }
       format.json { render json: @address_book}
     end
