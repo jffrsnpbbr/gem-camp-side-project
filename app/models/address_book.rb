@@ -12,6 +12,10 @@ class AddressBook < ApplicationRecord
 
   enum genre: { home: 0, office: 1 }
 
+  def full_address
+    "#{self.address_region.name}, #{address_province.name}, #{address_city.name}, #{address_barangay.name}"
+  end
+
   private
 
   def user_address_book_limit

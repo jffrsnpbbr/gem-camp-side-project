@@ -58,6 +58,17 @@ Rails.application.routes.draw do
         end
       end
       resources :bets, only: :index
+      resources :winners, only: :index do
+        member do
+          put :state_submit
+          put :state_pay
+          put :state_ship
+          put :state_deliver
+          put :state_share
+          put :state_publish
+          put :state_unpublish
+        end
+      end
 
       resources :categories
     end
